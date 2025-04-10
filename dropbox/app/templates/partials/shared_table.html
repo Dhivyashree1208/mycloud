@@ -1,0 +1,23 @@
+<table class="table table-bordered bg-white shadow">
+    <thead>
+      <tr>
+        <th>Filename</th>
+        <th>Shared With</th>
+        <th>Uploaded</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in shared_files %}
+      <tr>
+        <td>{{ file.filename }}</td>
+        <td>{{ file.shared_with | join(', ') }}</td>
+        <td>{{ file.upload_time.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+        <td>
+          <a href="{{ url_for('main.download', file_id=file._id) }}" class="btn btn-sm btn-info">Download</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  

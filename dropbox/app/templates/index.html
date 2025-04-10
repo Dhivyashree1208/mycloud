@@ -1,0 +1,26 @@
+<form method="GET" action="/">
+    <input type="text" name="search" placeholder="Search files...">
+    <button type="submit">Search</button>
+</form>
+
+<form method="POST" enctype="multipart/form-data" action="/upload">
+    <input type="file" name="file" required>
+    <input type="text" name="folder" placeholder="Folder name">
+    <input type="text" name="description" placeholder="File description">
+    <button type="submit">Upload</button>
+</form>
+
+<h3>Total Files: {{ stats.count }} | Total Size: {{ stats.total_size }} bytes</h3>
+
+{% for file in files %}
+<div>
+    <b>{{ file.filename }}</b> ({{ file.folder }})<br>
+    🧾 {{ file.description }}<br>
+    📅 Uploaded: {{ file.upload_time.strftime("%Y-%m-%d %H:%M") }}<br>
+    {% if "image" in file.type %}
+        <img src="{{ url_for('static', filename='uploads/' + file.folder + '/' + file.filename) }}" width="100">
+    {% endif %}
+    <a href="{{ url_for('main.delete', file_id=file._id) }}">Delete</a>
+</div>
+<hr>
+{% endfor %}

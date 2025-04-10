@@ -1,0 +1,28 @@
+<table class="table table-bordered bg-white shadow">
+    <thead>
+      <tr>
+        <th>Filename</th>
+        <th>Description</th>
+        <th>Size</th>
+        <th>Uploaded</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in favorite_files %}
+      <tr>
+        <td>{{ file.filename }}</td>
+        <td>{{ file.description }}</td>
+        <td>{{ file.size }}</td>
+        <td>{{ file.upload_time.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+        <td>
+          <a href="{{ url_for('main.download', file_id=file._id) }}" class="btn btn-sm btn-info">Download</a>
+          <form class="d-inline" method="POST" action="{{ url_for('main.unfavorite', file_id=file._id) }}">
+            <button class="btn btn-sm btn-outline-dark">❌</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
